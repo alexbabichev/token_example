@@ -64,6 +64,8 @@ async function init() {
   print('tokenSold', maxAmount - soldAmount + ' of ' + maxAmount);
 }
 
+// ----------------------------------------------------------------------------------------
+
 async function getBalance() {
   const result = await provider.getBalance("ethers.eth");
   const formated = ethers.utils.formatEther(result);
@@ -105,6 +107,7 @@ async function sendEth(amount) {
 }
 
 // ----------------------------------------------------------------------------------------
+// listen contract for receives tokens using currect metamask account address
 
 function listenContract() {
   // A filter for when a specific address receives tokens
@@ -112,10 +115,12 @@ function listenContract() {
   daiContract.on(filter, (from, to, amount, event) => {
     // The to will always be "address"
     alert(`I got ${ethers.utils.formatEther(amount)} from ${from}.`);
+    window.location.reload();
   });
 }
 
 // ----------------------------------------------------------------------------------------
+// handle "buy" button onclick
 
 function onBuy() {
   const value = document.querySelector('#inputAmount').value;
@@ -123,6 +128,7 @@ function onBuy() {
 }
 
 // ----------------------------------------------------------------------------------------
+// print values to html page
 
 function print(id, text) {
   document.querySelector('#' + id + ' span').innerText = text;
